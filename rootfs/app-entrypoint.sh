@@ -30,15 +30,13 @@ if [[ "$1" == "nami" && "$2" == "start" ]] || [[ "$1" == "httpd" ]]; then
     
     
     # composer update  => just assign this in docker-compose files for each project
-    # Configure this in the project .env file or environment option
-    info "Loading composer.json ${COMPOSER_FILE}"
-    if [[ -z "${COMPOSER_FILE}" ]] 
-    then
-        info "Extra Plugins Not Assigned"
+    # Assign this in the project .env file or environment option COMPOSER_FILE_LOCAL
+    if [[ ${COMPOSER_FILE_LOCAL} == 1 ]] ; then 
+        info "Loading composer.json from project root"
+        . /composer-update.sh
     fi
 
-    # THEME
-    su daemon -s /bin/bash -c '/opt/bitnami/wp-cli/bin/wp theme activate ${WP_THEME}'
+    su daemon -s /bin/bash -c "/opt/bitnami/wp-cli/bin/wp theme activate ${WP_THEME}"
  
     # PLUGINS
     su daemon -s /bin/bash -c '/opt/bitnami/wp-cli/bin/wp plugin activate wp-migrate-db-pro'
@@ -46,9 +44,8 @@ if [[ "$1" == "nami" && "$2" == "start" ]] || [[ "$1" == "httpd" ]]; then
     su daemon -s /bin/bash -c '/opt/bitnami/wp-cli/bin/wp plugin activate wp-migrate-db-pro-media-files'
     su daemon -s /bin/bash -c '/opt/bitnami/wp-cli/bin/wp plugin activate wp-migrate-db-pro-theme-plugin-files'
     
-    # su daemon -s /bin/bash -c '/opt/bitnami/wp-cli/bin/wp plugin activate bbpress'
     # LICENSE
-    su daemon -s /bin/bash -c '/opt/bitnami/wp-cli/bin/wp migratedb setting update license ${MARIADB_LICENSE}'
+    su daemon -s /bin/bash -c "/opt/bitnami/wp-cli/bin/wp migratedb setting update license ${MIGRATE_DB_LICENSE}"
     info "########################################################################"
 
     info "Starting wordpress gosu... "

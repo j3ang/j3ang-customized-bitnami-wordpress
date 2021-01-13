@@ -2,10 +2,13 @@
 
 
 
-curl -o /tmp/bbpress.2.6.4.zip https://downloads.wordpress.org/plugin/bbpress.2.6.4.zip
-curl -o /tmp/gambit.1.6.5.zip https://downloads.wordpress.org/theme/gambit.1.6.5.zip
-unzip /tmp/bbpress.2.6.4.zip -d /opt/bitnami/wordpress/wp-content/plugins
-unzip /tmp/gambit.1.6.5.zip -d /opt/bitnami/wordpress/wp-content/themes
+curl -o /tmp/bbpress.2.6.4.zip      https://downloads.wordpress.org/plugin/bbpress.2.6.4.zip
+curl -o /tmp/gambit.1.6.5.zip       https://downloads.wordpress.org/theme/gambit.1.6.5.zip
+curl -o /tmp/wp-console.zip         https://downloads.wordpress.org/plugin/wp-console.zip
+
+unzip /tmp/bbpress.2.6.4.zip    -d /opt/bitnami/wordpress/wp-content/plugins
+unzip /tmp/gambit.1.6.5.zip     -d /opt/bitnami/wordpress/wp-content/themes
+unzip /tmp/wp-console.zip       -d /opt/bitnami/wordpress/wp-content/plugins
 
 apt-get update -y
 apt-get install nano git zsh rpl bash-completion -y

@@ -1,0 +1,37 @@
+version: "2"
+services:
+  mariadb:
+    container_name: build-db
+    image: "docker.io/bitnami/mariadb:10.3-debian-10"
+    volumes:
+      - "mariadb_data:/bitnami/mariadb"
+    environment:
+      - MARIADB_USER=bn_wordpress
+      - MARIADB_DATABASE=bitnami_wordpress
+      - ALLOW_EMPTY_PASSWORD=yes
+  wordpress:
+    container_name: build-wordpress
+    image: "j3ang/my-custom-bitnami-wordpress:latest"
+    ports:
+      - "80:8080"
+      - "443:8443"
+    volumes:
+      - "wordpress_data:/bitnami/wordpress"
+    depends_on:
+      - mariadb
+    environment:
+      - MARIADB_HOST=mariadb
+      - MARIADB_PORT_NUMBER=3306
+      - WORDPRESS_DATABASE_USER=bn_wordpress
+      - WORDPRESS_DATABASE_NAME=bitnami_wordpress
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MARIADB_LICENSE= ${MARIADB_LICENSE}
+      - WP_THEME= ${WP_THEME}
+      - WP_THEME= ${WP_THEME}
+      - COMPOSER_FILE = ${COMPOSER_FILE}
+
+volumes:
+  mariadb_data:
+    driver: local
+  wordpress_data:
+    driver: local

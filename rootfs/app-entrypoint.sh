@@ -36,7 +36,7 @@ if [[ "$1" == "nami" && "$2" == "start" ]] || [[ "$1" == "httpd" ]]; then
         . /composer-update.sh
     fi
 
-    su daemon -s /bin/bash -c "/opt/bitnami/wp-cli/bin/wp theme activate ${WP_THEME}"
+    [[ ${WP_THEME} == 1 ]] && su daemon -s /bin/bash -c "/opt/bitnami/wp-cli/bin/wp theme activate ${WP_THEME}"
  
     # PLUGINS
     su daemon -s /bin/bash -c '/opt/bitnami/wp-cli/bin/wp plugin activate wp-migrate-db-pro'

@@ -11,7 +11,7 @@ services:
       - ALLOW_EMPTY_PASSWORD=yes
   wordpress:
     container_name: build-wordpress
-    image: "j3ang/my-custom-bitnami-wordpress:latest"
+    image: "j3ang/customized-bitnami-wordpress:latest"
     ports:
       - "80:8080"
       - "443:8443"
